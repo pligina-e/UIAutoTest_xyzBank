@@ -54,9 +54,8 @@ public class CustomersListPage extends BasePage {
     public ArrayList<String> listNames() {
         waitUntilVisibleAllElements(driver, firstNameTableCells);
         ArrayList<String> listText = new ArrayList<>();
-        for (int i = 0; i < firstNameTableCells.size(); i++) {
-            listText.add(firstNameTableCells.get(i).getText());
-        }
+        firstNameTableCells.stream()
+                .forEach(name->listText.add(name.getText()));
         return listText;
     }
     /**
@@ -79,9 +78,8 @@ public class CustomersListPage extends BasePage {
     public ArrayList<String> threeColumnWordList() {
         waitUntilVisibleAllElements(driver, threeTableColumns);
         ArrayList<String> listText = new ArrayList<>();
-        for (int i = 0; i < threeTableColumns.size(); i++) {
-            listText.add(threeTableColumns.get(i).getText());
-        }
+        threeTableColumns.stream()
+                .forEach(values->listText.add(values.getText()));
         return listText;
     }
     /**
@@ -105,12 +103,9 @@ public class CustomersListPage extends BasePage {
     @Step("Check the remaining rows for the content of the entered random word in the field")
     public boolean checkWordInTable() {
         String customerSearchWord = randomWordFromTable();
-        boolean containsWord;
+        boolean containsWord = false;
         waitUntilVisibleAllElements(driver, threeTableColumns);
-        for (int i = 0; i < threeTableColumns.size(); i++) {
-            containsWord = threeTableColumns.get(i).getText().contains(customerSearchWord);
-            if (containsWord) return true;
-        }
-        return false;
+        containsWord = threeTableColumns.stream().anyMatch(r->r.getText().contains(customerSearchWord));
+        return containsWord;
     }
 }

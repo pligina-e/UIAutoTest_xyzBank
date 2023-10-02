@@ -6,9 +6,11 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestContext;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
-import org.testng.annotations.BeforeTest;
+import org.testng.annotations.BeforeMethod;
 import pages.AddCustomerPage;
+import pages.AuthorizationPage;
 import pages.CustomersListPage;
 
 import java.time.Duration;
@@ -17,8 +19,9 @@ public class BaseTest {
     WebDriver driver;
     AddCustomerPage addCustomerPage;
     CustomersListPage customersListPage;
+    AuthorizationPage authorizationPage;
 
-    @BeforeTest
+    @BeforeMethod
     public void init(final ITestContext context) {
         String browserName = PropertyProvider.getInstance().getProperty("browser.name");
         int pageLoadTimeout = Integer.parseInt(PropertyProvider.getInstance().getProperty("page.load.timeout"));
@@ -41,6 +44,12 @@ public class BaseTest {
         driver.get(webUrl);
         addCustomerPage = new AddCustomerPage(driver);
         customersListPage = new CustomersListPage(driver);
+        authorizationPage = new AuthorizationPage(driver);
+    }
+
+    @AfterMethod
+    public final void afterMethod() {
+        driver.close();
     }
 
     @AfterTest

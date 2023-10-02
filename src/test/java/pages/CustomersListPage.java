@@ -5,9 +5,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Random;
+import java.util.Collections;
 
-import static helpers.Wait.*;
+import static helpers.Wait.inputText;
+import static helpers.Wait.waitUntilVisibleAllElements;
+import static helpers.Wait.waitThenClick;
 
 /**
  * Класс для работы с формой просмотра таблицы клиентов (Второй, третий тест-кейс)
@@ -53,10 +59,6 @@ public class CustomersListPage extends BasePage {
         waitUntilVisibleAllElements(driver, firstNameTableCells);
         ArrayList<String> listText = new ArrayList<>();
         firstNameTableCells.stream().forEach(name -> listText.add(name.getText()));
-        //ArrayList listText = (ArrayList) firstNameTableCells.stream().collect(Collectors.toList());
-
-        //ArrayList listText2 = firstNameTableCells.stream().map(WebElement::getText).toArray(ArrayList::new);
-        //ArrayList listText3 = firstNameTableCells.stream().toArray(n->n.getText());
         return listText;
     }
 

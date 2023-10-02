@@ -1,10 +1,11 @@
 package tests;
 
 import helpers.Generator;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import org.testng.asserts.SoftAssert;
 import pages.AddCustomerPage;
+import pages.AuthorizationPage;
 import pages.CustomersListPage;
 
 import java.util.ArrayList;
@@ -21,32 +22,37 @@ public class BankManagerLoginTest extends BaseTest {
 
     @Test(description = "Add customer with correct data", dataProvider = "Valid data to create a customer")
     public final void correctDataAutoTest(String name, String surname, String postcode) {
-        SoftAssert softAssert = new SoftAssert();
         AddCustomerPage addCustomer = new AddCustomerPage(driver);
         addCustomer.pressButton();
         addCustomer.fillFields(name, surname, postcode);
-        softAssert.assertTrue(addCustomer.alertText().contains("Customer added successfully with customer id"), "Alert has different text");
-        softAssert.assertAll();
+        Assert.assertTrue(addCustomer.alertText().contains("Customer added successfully with customer id"), "Alert has different text");
     }
 
     @Test(description = "Correct sorting of names")
     public final void sortByNameAutoTest() {
-        SoftAssert softAssert = new SoftAssert();
         CustomersListPage listCustomers = new CustomersListPage(driver);
         listCustomers.pressButton();
-        ArrayList<String> reverseListNames = listCustomers.listNamesReverseOrder();
+        ArrayList<String> listNamesForReverseOrder = listCustomers.listNames();
+        ArrayList<String> reverseListNames = listCustomers.listNamesReverseOrder(listNamesForReverseOrder);
         listCustomers.clickOnFirstCell();
         ArrayList<String> listNames = listCustomers.listNames();
-        softAssert.assertEquals(reverseListNames, listNames, "Incorrect sorting");
-        softAssert.assertAll();
+        Assert.assertEquals(reverseListNames, listNames, "Incorrect sorting");
     }
 
     @Test(description = "Correct search customer")
     public final void searchCustomerAutoTest() {
-        SoftAssert softAssert = new SoftAssert();
         CustomersListPage listCustomers = new CustomersListPage(driver);
         listCustomers.pressButton();
-        softAssert.assertTrue(listCustomers.checkWordInTable(),"Client not found");
-        softAssert.assertAll();
+        ArrayList<String> listText = listCustomers.threeColumnWordList();
+        String customerSearchWord = listCustomers.randomWordFromTable(listText);
+        Assert.assertTrue(listCustomers.checkWordInTable(customerSearchWord),"Client not found");
+    }
+
+    @Test(description = "Correct choose customer")
+    public final void authAutoTest() {
+        AuthorizationPage authorization = new AuthorizationPage(driver);
+        authorization.pressButton();
+        authorization.selectDataAndSubmit();
+        Assert.assertTrue(authorization.alertText().contains("Account created successfully with account Number"), "Alert has different text");
     }
 }

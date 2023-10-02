@@ -10,6 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Random;
 import java.util.Collections;
+import java.util.stream.Collectors;
 
 import static helpers.Wait.inputText;
 import static helpers.Wait.waitUntilVisibleAllElements;
@@ -57,8 +58,9 @@ public class CustomersListPage extends BasePage {
     @Step("Remember all names from the table")
     public ArrayList<String> listNames() {
         waitUntilVisibleAllElements(driver, firstNameTableCells);
-        ArrayList<String> listText = new ArrayList<>();
-        firstNameTableCells.stream().forEach(name -> listText.add(name.getText()));
+        ArrayList<String> listText = firstNameTableCells.stream()
+                .map(item->item.getText())
+                .collect(Collectors.toCollection(ArrayList::new));
         return listText;
     }
 
@@ -80,8 +82,9 @@ public class CustomersListPage extends BasePage {
     @Step("Remember values in three columns of the table")
     public ArrayList<String> threeColumnWordList() {
         waitUntilVisibleAllElements(driver, threeTableColumns);
-        ArrayList<String> listText = new ArrayList<>();
-        threeTableColumns.stream().forEach(values -> listText.add(values.getText()));
+        ArrayList listText = threeTableColumns.stream()
+                .map(item->item.getText())
+                .collect(Collectors.toCollection(ArrayList::new));
         return listText;
     }
 

@@ -1,5 +1,6 @@
 package helpers;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -8,8 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
 import java.util.List;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.alertIsPresent;
 
 public class Wait {
     private static Wait instance;
@@ -27,6 +26,10 @@ public class Wait {
         wait = new WebDriverWait(driver, Duration.ofSeconds(timeout));
     }
 
+    public static void waitUntilVisibleElement(WebDriver driver, final WebElement webElement) {
+        getInstance(driver).wait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+
     public static void waitUntilVisibleAllElements(WebDriver driver, final List<WebElement> webElement) {
         getInstance(driver).wait.until(ExpectedConditions.visibilityOfAllElements(webElement));
     }
@@ -36,13 +39,15 @@ public class Wait {
         webElement.click();
     }
 
-    public static void writeText(WebDriver driver, final WebElement webElement, String text) {
+    @Step("Write text in the field")
+    public static void inputText(WebDriver driver, final WebElement webElement, String text) {
         getInstance(driver).wait.until(ExpectedConditions.visibilityOf(webElement));
         webElement.sendKeys(text);
     }
 
-    public static String alertGetTextAndClick(WebDriver driver) {
-        Alert alert = getInstance(driver).wait.until(alertIsPresent());
+    @Step("Get alert text and click")
+    public static String getTextAlertAndClick(WebDriver driver) {
+        Alert alert = getInstance(driver).wait.until(ExpectedConditions.alertIsPresent());
         String alertText = alert.getText();
         alert.accept();
         return alertText;

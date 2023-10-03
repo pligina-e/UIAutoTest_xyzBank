@@ -29,7 +29,6 @@ public class AddCustomerPage extends BasePage {
         super(webDriver);
     }
 
-    @Step("Wait and press the button to add customer")
     public AddCustomerPage pressButton() {
         waitThenClick(driver, addCustomerButton);
         return this;

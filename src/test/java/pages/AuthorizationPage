@@ -30,7 +30,6 @@ public class AuthorizationPage extends BasePage {
         super(webDriver);
     }
 
-    @Step("Wait and press the button to open account")
     public AuthorizationPage pressButton() {
         waitThenClick(driver, openAccountButton);
         return this;

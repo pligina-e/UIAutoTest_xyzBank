@@ -34,6 +34,7 @@ public class Wait {
         getInstance(driver).wait.until(ExpectedConditions.visibilityOfAllElements(webElement));
     }
 
+    @Step("Wait and click on the web element")
     public static void waitThenClick(WebDriver driver, final WebElement webElement) {
         getInstance(driver).wait.until(ExpectedConditions.elementToBeClickable(webElement));
         webElement.click();

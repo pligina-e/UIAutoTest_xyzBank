@@ -36,7 +36,6 @@ public class CustomersListPage extends BasePage {
         super(webDriver);
     }
 
-    @Step("Wait and press the button to add customer")
     public CustomersListPage pressButton() {
         waitThenClick(driver, customersButton);
         return this;
@@ -45,7 +44,6 @@ public class CustomersListPage extends BasePage {
     /**
      * Метод для нажатия на содержимое первой ячейки таблицы (для того, чтобы произошла сортировка)
      */
-    @Step("Wait and click on the first cell for sorting rows")
     public CustomersListPage clickOnFirstCell() {
         waitThenClick(driver, firstNameField);
         return this;

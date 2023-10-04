@@ -8,9 +8,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import java.util.Random;
 
-import static helpers.Wait.getTextAlertAndClick;
-import static helpers.Wait.waitThenClick;
-import static helpers.Wait.waitUntilVisibleElement;
+import static helpers.Wait.*;
 
 /**
  * Класс для работы с формой авторизации клиента (Четвертый тест-кейс)
@@ -49,13 +47,5 @@ public class AuthorizationPage extends BasePage {
         selectCurrency.selectByIndex(random.nextInt(3) + 1);
         waitThenClick(driver, submitButton);
         return this;
-    }
-
-    /**
-     * Метод для просмотра алерта, запоминания его текста и нажатия кнопки "Ок" на алерте
-     * @return текст алерта
-     */
-    public String alertText() {
-        return getTextAlertAndClick(driver);
     }
 }

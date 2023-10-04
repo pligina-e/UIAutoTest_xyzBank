@@ -10,6 +10,8 @@ import pages.CustomersListPage;
 
 import java.util.ArrayList;
 
+import static helpers.Wait.getTextAlertAndClick;
+
 public class BankManagerLoginTest extends BaseTest {
     Generator generator = new Generator();
 
@@ -25,7 +27,7 @@ public class BankManagerLoginTest extends BaseTest {
         AddCustomerPage addCustomer = new AddCustomerPage(driver);
         addCustomer.pressButton();
         addCustomer.fillFields(name, surname, postcode);
-        Assert.assertTrue(addCustomer.alertText().contains("Customer added successfully with customer id"), "Alert has different text");
+        Assert.assertTrue(getTextAlertAndClick(driver).contains("Customer added successfully with customer id"), "Alert has different text");
     }
 
     @Test(description = "Correct sorting of names")
@@ -53,6 +55,6 @@ public class BankManagerLoginTest extends BaseTest {
         AuthorizationPage authorization = new AuthorizationPage(driver);
         authorization.pressButton();
         authorization.selectDataAndSubmit();
-        Assert.assertTrue(authorization.alertText().contains("Account created successfully with account Number"), "Alert has different text");
+        Assert.assertTrue(getTextAlertAndClick(driver).contains("Account created successfully with account Number"), "Alert has different text");
     }
 }

@@ -7,7 +7,6 @@ import org.openqa.selenium.support.FindBy;
 
 import static helpers.Wait.inputText;
 import static helpers.Wait.waitThenClick;
-import static helpers.Wait.getTextAlertAndClick;
 
 /**
  * Класс для работы с формой создания клиента (Первый тест-кейс)
@@ -47,13 +46,5 @@ public class AddCustomerPage extends BasePage {
         inputText(driver, postCodeField, postcode);
         waitThenClick(driver, submitButton);
         return this;
-    }
-
-    /**
-     * Метод для просмотра алерта, запоминания его текста и нажатия кнопки "Ок" на алерте
-     * @return текст алерта
-     */
-    public String alertText() {
-        return getTextAlertAndClick(driver);
     }
 }

@@ -19,7 +19,6 @@ public class BaseTest {
     WebDriver driver;
     AddCustomerPage addCustomerPage;
     CustomersListPage customersListPage;
-    AuthorizationPage authorizationPage;
 
     @BeforeMethod
     public void init(final ITestContext context) {
@@ -44,7 +43,6 @@ public class BaseTest {
         driver.get(webUrl);
         addCustomerPage = new AddCustomerPage(driver);
         customersListPage = new CustomersListPage(driver);
-        authorizationPage = new AuthorizationPage(driver);
     }
 
     @AfterMethod

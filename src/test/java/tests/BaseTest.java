@@ -10,7 +10,6 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeMethod;
 import pages.AddCustomerPage;
-import pages.AuthorizationPage;
 import pages.CustomersListPage;
 
 import java.time.Duration;
@@ -19,7 +18,6 @@ public class BaseTest {
     WebDriver driver;
     AddCustomerPage addCustomerPage;
     CustomersListPage customersListPage;
-    AuthorizationPage authorizationPage;
 
     @BeforeMethod
     public void init(final ITestContext context) {
@@ -44,7 +42,6 @@ public class BaseTest {
         driver.get(webUrl);
         addCustomerPage = new AddCustomerPage(driver);
         customersListPage = new CustomersListPage(driver);
-        authorizationPage = new AuthorizationPage(driver);
     }
 
     @AfterMethod

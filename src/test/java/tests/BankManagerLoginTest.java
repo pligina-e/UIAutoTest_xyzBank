@@ -5,7 +5,6 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.AddCustomerPage;
-import pages.AuthorizationPage;
 import pages.CustomersListPage;
 
 import java.util.ArrayList;
@@ -48,13 +47,5 @@ public class BankManagerLoginTest extends BaseTest {
         ArrayList<String> listText = listCustomers.threeColumnWordList();
         String customerSearchWord = listCustomers.randomWordFromTable(listText);
         Assert.assertTrue(listCustomers.checkWordInTable(customerSearchWord),"Client not found");
-    }
-
-    @Test(description = "Correct choose customer")
-    public final void authAutoTest() {
-        AuthorizationPage authorization = new AuthorizationPage(driver);
-        authorization.pressButton();
-        authorization.selectDataAndSubmit();
-        Assert.assertTrue(getTextAlertAndClick(driver).contains("Account created successfully with account Number"), "Alert has different text");
     }
 }

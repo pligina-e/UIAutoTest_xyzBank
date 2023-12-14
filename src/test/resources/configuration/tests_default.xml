@@ -2,9 +2,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 
 <suite name="Default suite">
-    <listeners>
-        <listener class-name="helpers.TestListener"/>
-    </listeners>
     <test name="BankManagerLoginTests">
         <classes>
             <class name="tests.BankManagerLoginTest"/>
